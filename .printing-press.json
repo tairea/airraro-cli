@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-06-21T19:13:23.760855969Z",
+  "printing_press_version": "4.24.0",
+  "api_name": "airraro",
+  "display_name": "Air Rarotonga",
+  "cli_name": "airraro-pp-cli",
+  "creator": {
+    "handle": "tairea",
+    "name": "Ian Tairea"
+  },
+  "owner": "tairea",
+  "printer": "tairea",
+  "printer_name": "Ian Tairea",
+  "spec_format": "internal",
+  "spec_checksum": "sha256:a88429349a20968bfce62e72aeecc031b4131e19370b08d8207376e8189a58c2",
+  "run_id": "20260621-080127-30172ef3",
+  "category": "travel",
+  "description": "Live Cook Islands flight fares and the full Air Rarotonga route network, agent-native with offline search.",
+  "mcp_binary": "airraro-pp-mcp",
+  "mcp_tool_count": 4,
+  "mcp_ready": "full",
+  "api_version": "0.1.0",
+  "auth_type": "api_key",
+  "auth_env_vars": [
+    "AIRRARO_TENANT_ID"
+  ],
+  "novel_features": [
+    {
+      "name": "Cheapest day finder",
+      "command": "cheapest",
+      "description": "Find the lowest fare per day across a date window for a route."
+    },
+    {
+      "name": "Offline route network",
+      "command": "network",
+      "description": "Full Cook Islands route graph stored locally in SQLite."
+    },
+    {
+      "name": "Fare calendar",
+      "command": "fare-calendar",
+      "description": "Fares for a route across many dates, persisted for trend tracking."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+# agentcookie.toml: secrets-bus adoption manifest v2
+# See docs/spec-agentcookie-secrets-bus-v2-adoption.md
+schema_version = 2
+name = "airraro-pp-cli"
+display_name = "Air Rarotonga"
+description = "Live Cook Islands flight fares and the full Air Rarotonga route network, agent-native with offline search."
+project_kind = "cli"
+
+[secrets.file]
+path = "~/.config/airraro-pp-cli/config.toml"
+
+[sync]
+default = false
+
+[sync.keys]
+AIRRARO_TENANT_ID = true

@@ -1,0 +1,39 @@
+{
+  "manifest_version": "0.3",
+  "name": "airraro-pp-mcp",
+  "display_name": "Air Rarotonga",
+  "version": "0.0.0",
+  "description": "Live Cook Islands flight fares and the full Air Rarotonga route network, agent-native with offline search.",
+  "author": {
+    "name": "CLI Printing Press"
+  },
+  "license": "Apache-2.0",
+  "server": {
+    "type": "binary",
+    "entry_point": "bin/airraro-pp-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/bin/airraro-pp-mcp",
+      "args": [],
+      "env": {
+        "AIRRARO_TENANT_ID": "${user_config.airraro_tenant_id}"
+      }
+    }
+  },
+  "user_config": {
+    "airraro_tenant_id": {
+      "type": "string",
+      "title": "AIRRARO_TENANT_ID",
+      "description": "Sets AIRRARO_TENANT_ID for the Air Rarotonga MCP server.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": [
+      "darwin",
+      "linux",
+      "win32"
+    ]
+  }
+}

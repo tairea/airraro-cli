@@ -1,0 +1,131 @@
+name: airraro
+description: "Air Rarotonga (Cook Islands) flights, fares, and route network via the Sabre EzyCommerce API"
+version: "0.1.0"
+base_url: "https://airraro-api-ase1.ezycommerce.sabre.com/api/v1"
+category: travel
+health_check_path: "/Airport/OriginsWithConnections/en-us"
+
+required_headers:
+  - name: X-ClientVersion
+    value: "0.5.4036"
+  - name: AppContext
+    value: "ibe"
+
+auth:
+  type: api_key
+  header: "Tenant-Identifier"
+  format: "{token}"
+  in: header
+  env_vars:
+    - AIRRARO_TENANT_ID
+
+config:
+  format: toml
+  path: "~/.config/airraro/config.toml"
+
+resources:
+  flights:
+    description: "Search live Air Rarotonga flights and fares"
+    endpoints:
+      search:
+        method: POST
+        path: "/Availability/SearchShop"
+        description: "Search flights and fares for a route over a date window (Sabre EzyCommerce SearchShop)"
+        no_auth: false
+        body:
+          properties:
+            passengers:
+              type: array
+              required: true
+              items:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  count:
+                    type: int
+            routes:
+              type: array
+              required: true
+              items:
+                type: object
+                properties:
+                  fromAirport:
+                    type: string
+                  toAirport:
+                    type: string
+                  departureDate:
+                    type: string
+                  startDate:
+                    type: string
+                  endDate:
+                    type: string
+            currency:
+              type: string
+            fareTypeCategories:
+              type: object
+            isManageBooking:
+              type: bool
+            languageCode:
+              type: string
+
+  airports:
+    description: "Air Rarotonga route network and airport connections"
+    endpoints:
+      network:
+        method: GET
+        path: "/Airport/OriginsWithConnections/{languageCode}"
+        description: "Full route network: every origin airport and the destinations it connects to"
+        no_auth: false
+        params:
+          - name: languageCode
+            type: string
+            required: true
+            positional: true
+            default: "en-us"
+            description: "Language code, e.g. en-us"
+
+  config:
+    description: "Tenant configuration"
+    endpoints:
+      get:
+        method: GET
+        path: "/Config/Get"
+        description: "Tenant configuration document"
+        no_auth: false
+        params:
+          - name: path
+            type: string
+            required: false
+            default: "en"
+            description: "Config path segment"
+          - name: languageCode
+            type: string
+            required: false
+            default: "en-us"
+            description: "Language code"
+
+  content:
+    description: "CMS content (Prismic-backed)"
+    endpoints:
+      query:
+        method: GET
+        path: "/Content/Query"
+        description: "Query CMS content blocks by custom type"
+        no_auth: false
+        params:
+          - name: customType
+            type: string
+            required: false
+            default: "home"
+            description: "Content type, e.g. home or layout"
+          - name: languageCode
+            type: string
+            required: false
+            default: "en-us"
+            description: "Language code"
+          - name: excludedTags
+            type: string
+            required: false
+            default: "emergency-mode"
+            description: "Tags to exclude"

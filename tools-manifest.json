@@ -1,0 +1,144 @@
+{
+  "api_name": "airraro",
+  "base_url": "https://airraro-api-ase1.ezycommerce.sabre.com/api/v1",
+  "description": "Live Cook Islands flight fares and the full Air Rarotonga route network, agent-native with offline search.",
+  "mcp_ready": "full",
+  "http_transport": "standard",
+  "auth": {
+    "type": "api_key",
+    "header": "Tenant-Identifier",
+    "format": "{AIRRARO_TENANT_ID}",
+    "in": "header",
+    "env_vars": [
+      "AIRRARO_TENANT_ID"
+    ],
+    "env_var_specs": [
+      {
+        "name": "AIRRARO_TENANT_ID",
+        "kind": "per_call",
+        "required": true,
+        "sensitive": true,
+        "inferred": true
+      }
+    ]
+  },
+  "required_headers": [
+    {
+      "name": "X-ClientVersion",
+      "value": "0.5.4036"
+    },
+    {
+      "name": "AppContext",
+      "value": "ibe"
+    }
+  ],
+  "tools": [
+    {
+      "name": "airports_network",
+      "description": "Full route network: every origin airport and the destinations it connects to. Required: languageCode (default: en-us).",
+      "method": "GET",
+      "path": "/Airport/OriginsWithConnections/{languageCode}",
+      "params": [
+        {
+          "name": "languageCode",
+          "type": "string",
+          "location": "path",
+          "description": "Language code, e.g. en-us",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "config_get",
+      "description": "Tenant configuration document. Optional: path (default: en), languageCode (default: en-us).",
+      "method": "GET",
+      "path": "/Config/Get",
+      "params": [
+        {
+          "name": "path",
+          "type": "string",
+          "location": "query",
+          "description": "Config path segment"
+        },
+        {
+          "name": "languageCode",
+          "type": "string",
+          "location": "query",
+          "description": "Language code"
+        }
+      ]
+    },
+    {
+      "name": "content_query",
+      "description": "Query CMS content blocks by custom type. Optional: customType (default: home), languageCode (default: en-us), excludedTags (default: emergency-mode).",
+      "method": "GET",
+      "path": "/Content/Query",
+      "params": [
+        {
+          "name": "customType",
+          "type": "string",
+          "location": "query",
+          "description": "Content type, e.g. home or layout"
+        },
+        {
+          "name": "languageCode",
+          "type": "string",
+          "location": "query",
+          "description": "Language code"
+        },
+        {
+          "name": "excludedTags",
+          "type": "string",
+          "location": "query",
+          "description": "Tags to exclude"
+        }
+      ]
+    },
+    {
+      "name": "flights_search",
+      "description": "Search flights and fares for a route over a date window (Sabre EzyCommerce SearchShop). Required: passengers, routes. Optional: currency, fareTypeCategories, isManageBooking (plus 1 more).",
+      "method": "POST",
+      "path": "/Availability/SearchShop",
+      "params": [
+        {
+          "name": "passengers",
+          "type": "array",
+          "location": "body",
+          "description": "passengers",
+          "required": true
+        },
+        {
+          "name": "routes",
+          "type": "array",
+          "location": "body",
+          "description": "routes",
+          "required": true
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "location": "body",
+          "description": "currency"
+        },
+        {
+          "name": "fareTypeCategories",
+          "type": "object",
+          "location": "body",
+          "description": "fareTypeCategories"
+        },
+        {
+          "name": "isManageBooking",
+          "type": "bool",
+          "location": "body",
+          "description": "isManageBooking"
+        },
+        {
+          "name": "languageCode",
+          "type": "string",
+          "location": "body",
+          "description": "languageCode"
+        }
+      ]
+    }
+  ]
+}

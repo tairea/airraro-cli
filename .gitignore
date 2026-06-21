@@ -1,0 +1,14 @@
+# Compiled binaries / build artifacts
+/airraro-pp-cli
+/build/
+*.mcpb
+
+# Local run bookkeeping (not part of the source)
+/dogfood-results.json
+/workflow-verify-report.json
+/.manuscripts/
+/.printing-press-pii-polish.json
+/.printing-press-patches/
+
+# Local config / secrets
+/config.toml
