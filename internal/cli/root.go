@@ -246,6 +246,8 @@ See README.md or the bundled SKILL.md for recipes.`,
 	rootCmd.AddCommand(newNovelCheapestCmd(flags))
 	rootCmd.AddCommand(newNovelFareCalendarCmd(flags))
 	rootCmd.AddCommand(newNovelNetworkCmd(flags))
+	rootCmd.AddCommand(newNovelFreightCmd(flags))
+	rootCmd.AddCommand(newNovelScheduleCmd(flags))
 	rootCmd.AddCommand(newAPICmd(flags))
 	rootCmd.AddCommand(newAirportsPromotedCmd(flags))
 	rootCmd.AddCommand(newConfigPromotedCmd(flags))
